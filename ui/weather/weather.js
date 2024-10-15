@@ -1,8 +1,8 @@
 // noinspection DuplicatedCode,HttpUrlsUsage,JSUnresolvedReference
 
-import { weatherConditions } from "../main/core.ts";
+import { weatherConditions } from "../main/core.js";
 
-$((): void => {
+$(() => {
   const $city = $("#city");
   const $temperature = $("#temperature");
   const $unit = $("#unit");
@@ -20,10 +20,10 @@ $((): void => {
   }
 
   function fetchWeather() {
-    $.getJSON("http://ip-api.com/json", (locationData: any) => {
-      const city: string | undefined = locationData.city;
-      const lat: number | undefined = locationData.lat;
-      const lon: number | undefined = locationData.lon;
+    $.getJSON("http://ip-api.com/json", (locationData) => {
+      const city = locationData.city;
+      const lat = locationData.lat;
+      const lon = locationData.lon;
 
       if (!city || !lat || !lon) {
         alert("Error parsing location data");
@@ -31,17 +31,14 @@ $((): void => {
       }
 
       $.ajax({
-        url:
-          `https://purrooser-weather.vercel.app/weather?lat=${lat}&lon=${lon}`,
+        url: `https://purrooser-api.deno.dev/weather?lat=${lat}&lon=${lon}`,
         method: "GET",
         headers: { "Version": "Purrooser/1.0" },
-        success: (weatherData: any) => {
+        success: (weatherData) => {
           const temperature = Math.round(weatherData.main?.temp ?? 0);
           const weatherCode = weatherData.weather?.[0]?.id ?? 0;
           const humidity = weatherData.main?.humidity ?? 0;
-          const { description, iconUrl } = getWeatherConditionDescription(
-            weatherCode,
-          );
+          const { description, iconUrl } = getWeatherConditionDescription(weatherCode);
           const unit = "°F";
 
           $city.text(city);
@@ -61,8 +58,7 @@ $((): void => {
     }).fail(() => alert("Error getting IP"));
   }
 
-  function getWeatherConditionDescription(weatherCode: number) {
-    return weatherConditions[weatherCode] ||
-      { description: "Unknown weather condition", iconUrl: "" };
+  function getWeatherConditionDescription(weatherCode) {
+    return weatherConditions[weatherCode] || { description: "Unknown weather condition", iconUrl: "" };
   }
 });

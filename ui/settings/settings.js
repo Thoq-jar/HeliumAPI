@@ -1,4 +1,4 @@
-$((): void => {
+$(() => {
   $(".tab").on("click", function () {
     const contentId = $(this).data("content");
     $(".content").hide();
@@ -9,7 +9,7 @@ $((): void => {
 
   $("#search-bar").on("input", function () {
     const searchTerm = String($(this).val()).toLowerCase();
-    $(".content").each(() => {
+    $(".content").each(function () {
       const isVisible = $(this).text().toLowerCase().includes(searchTerm);
       $(this).toggle(isVisible);
     });

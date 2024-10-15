@@ -59,18 +59,18 @@ input[type="text"] {
   font-family: inherit;
   font-size: 20px;
   transition: background-color 0.3s ease;
+}
 
-  &::placeholder {
+input[type="text"]:focus {
+  outline: none;
+}
+
+input[type="text"]:hover {
+  background-color: rgba(48, 48, 48, 0.5);
+}
+
+input[type="text"]::placeholder {
     color: rgba(255, 255, 255, 0.7);
-  }
-
-  &:hover {
-    background-color: rgba(48, 48, 48, 0.5);
-  }
-
-  &:focus {
-    outline: none;
-  }
 }
 
 .go {
@@ -78,10 +78,10 @@ input[type="text"] {
   background-color: rgba(32, 33, 36, 0.5);
   color: white;
   font-size: 25px;
+}
 
-  &:hover {
-    background-color: rgba(48, 48, 48, 0.5);
-  }
+.go:hover {
+  background-color: rgba(48, 48, 48, 0.5);
 }
 
 button {
@@ -151,12 +151,12 @@ button {
   border-radius: 5px;
   background: transparent;
   transition: background-color 0.3s ease;
+}
 
-  &:hover {
-    background: rgba(10, 10, 10, 0.3);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-  }
+.bg-switch-img:hover {
+  background: rgba(10, 10, 10, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .bg-switch-button, .bg-switch-img {
