@@ -1,6 +1,6 @@
 // noinspection DuplicatedCode,HttpUrlsUsage,JSUnresolvedReference
 
-import { weatherConditions } from "../main/core.js";
+import { weatherConditions } from "../main/core.ts";
 
 $((): void => {
   const $city = $("#city");
