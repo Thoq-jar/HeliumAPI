@@ -107,7 +107,7 @@ function checkENV() {
   }
 }
 
-function main() {
+export function begin() {
   console.log(banners.welcomeBanner);
   console.log("Trying to check environment...");
 
@@ -117,5 +117,3 @@ function main() {
     console.error(`${ex}\nFailed to check environment!`);
   }
 }
-
-main();
