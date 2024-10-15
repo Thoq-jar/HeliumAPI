@@ -415,13 +415,13 @@ $(() => {
     const $weatherContainer = $(".weather-container");
 
     function fetchWeather() {
-        $.getJSON("http://ip-api.com/json", (locationData) => {
+        $.getJSON("https://ipinfo.io/json", (locationData) => {
             const city = locationData.city;
-            const lat = locationData.lat;
-            const lon = locationData.lon;
+            const lat = locationData.loc.split(",")[0];
+            const lon = locationData.loc.split(",")[1];
 
             $.ajax({
-                url: `https://purrooser-api.deno.dev/weather?lat=${lat}&lon=${lon}`,
+                url: `https://purrooser-weather.vercel.app/weather?lat=${lat}&lon=${lon}`,
                 method: "GET",
                 headers: {
                     "Version": "Purrooser/1.0",
@@ -429,7 +429,7 @@ $(() => {
                 success: (weatherData) => {
                     const temperature = Math.round(weatherData.main.temp);
                     const weatherCode = weatherData.weather[0].id;
-                    const {description, iconUrl} = getWeatherConditionDescription(weatherCode);
+                    const { description, iconUrl } = getWeatherConditionDescription(weatherCode);
                     const unit = "°F";
 
                     $city.text(city);
@@ -438,7 +438,7 @@ $(() => {
                     $weatherIcon.attr("src", iconUrl);
                     $weatherDescription.text(description);
 
-                    $weatherContainer.css({"display": "flex"});
+                    $weatherContainer.css({ "display": "flex" });
                     $weatherDescription.show();
                 },
                 error: () => alert("Error loading weather"),
@@ -449,6 +449,6 @@ $(() => {
     fetchWeather();
 
     function getWeatherConditionDescription(weatherCode) {
-        return weatherConditions[weatherCode] || {description: "Unknown weather condition", iconUrl: ""};
+        return weatherConditions[weatherCode] || { description: "Unknown weather condition", iconUrl: "" };
     }
 });
