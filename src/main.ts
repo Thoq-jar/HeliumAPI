@@ -1,5 +1,5 @@
 import "@std/dotenv/load";
-import {serveDir} from "@std/http/file-server";
+import { serveDir } from "@std/http/file-server";
 import * as banners from "./banners.ts";
 import exit = Deno.exit;
 
