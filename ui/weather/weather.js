@@ -26,7 +26,8 @@ $(() => {
       const lon = locationData.loc.split(",")[1];
 
       $.ajax({
-        url: `https://purrooser-weather.vercel.app/weather?lat=${lat}&lon=${lon}`,
+        url:
+          `https://purrooser-weather.vercel.app/weather?lat=${lat}&lon=${lon}`,
         method: "GET",
         headers: {
           "Version": "Purrooser/1.0",
@@ -34,7 +35,9 @@ $(() => {
         success: (weatherData) => {
           const temperature = Math.round(weatherData.main.temp);
           const weatherCode = weatherData.weather[0].id;
-          const { description, iconUrl } = getWeatherConditionDescription(weatherCode);
+          const { description, iconUrl } = getWeatherConditionDescription(
+            weatherCode,
+          );
           const unit = "°F";
 
           $city.text(city);
@@ -52,6 +55,7 @@ $(() => {
   }
 
   function getWeatherConditionDescription(weatherCode) {
-    return weatherConditions[weatherCode] || { description: "Unknown weather condition", iconUrl: "" };
+    return weatherConditions[weatherCode] ||
+      { description: "Unknown weather condition", iconUrl: "" };
   }
 });
