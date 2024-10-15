@@ -1,4 +1,3 @@
-import { serveDir } from "https://deno.land/std@0.224.0/http/file_server.ts";
 import "jsr:@std/dotenv/load";
 
 let API_KEY: string | undefined;
@@ -16,15 +15,45 @@ else console.error("MISSING: env variable: API_URL_UNIT");
 
 Deno.serve(async (req: Request) => {
   const pathname: string = new URL(req.url).pathname;
-  const url: URL = new URL(req.url);
 
   if (pathname.startsWith("/ui")) {
-    return serveDir(req, {
-      fsRoot: "./",
-    });
+    const filePath: string = `.${pathname}`;
+    let contentType: string;
+
+    switch (true) {
+      case pathname.endsWith(".html"):
+        contentType = "text/html";
+        break;
+
+      case pathname.endsWith(".css"):
+        contentType = "text/css";
+        break;
+
+      case pathname.endsWith(".js"):
+        contentType = "application/javascript";
+        break;
+
+      case pathname.endsWith(".png"):
+        contentType = "image/png";
+        break;
+
+      default:
+        return new Response("Unsupported file type", { status: 415 });
+    }
+
+    try {
+      const fileContent: Uint8Array = await Deno.readFile(filePath);
+      return new Response(fileContent, {
+        headers: { "Content-Type": contentType },
+      });
+    } catch (error) {
+      console.error("Error reading file:", error);
+      return new Response("File not found", { status: 404 });
+    }
   }
 
   if (pathname.startsWith("/weather")) {
+    const url: URL = new URL(req.url);
     const lat: string | null = url.searchParams.get("lat");
     const lon: string | null = url.searchParams.get("lon");
 
