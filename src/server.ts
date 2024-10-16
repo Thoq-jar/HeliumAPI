@@ -21,6 +21,10 @@ function serve() {
         return serveDir(req, { fsRoot: "./public" });
       }
 
+      case pathname.startsWith("/"): {
+        return new Response("Hi mom!", { status: 418 });
+      }
+
       case pathname.startsWith("/weather"): {
         const url: URL = new URL(req.url);
         const lat: string | null = url.searchParams.get("lat");
@@ -31,7 +35,7 @@ function serve() {
         }
 
         const weatherData: Response = await fetch(
-          `${API_URL}lat=${lat}&lon=${lon}&appid=${API_KEY}${API_UNIT}`,
+      `${API_URL}lat=${lat}&lon=${lon}&appid=${API_KEY}${API_UNIT}`,
         );
         const weatherJson = await weatherData.json();
 
@@ -40,8 +44,9 @@ function serve() {
         });
       }
 
-      default:
-        return new Response("Could not route your request!", { status: 404 });
+      default: {
+        return new Response("Could not route your request!", { status: 400 });
+      }
     }
   });
 }

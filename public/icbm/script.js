@@ -18,7 +18,6 @@ function onLoad() {
 
   setTimeout(() => {
     explosion.style.display = "block";
-    explosion.style.opacity = "1";
-    explosion.style.transform = "scale(2)";
+    explosion.classList.add("explode");
   }, 4000);
 }
