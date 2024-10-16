@@ -13,7 +13,7 @@ const defaultResponse = {
 };
 
 function serve() {
-  console.log("Server started!");
+  console.log("Server started");
   Deno.serve(async (req: Request) => {
     const pathname: string = new URL(req.url).pathname;
 
