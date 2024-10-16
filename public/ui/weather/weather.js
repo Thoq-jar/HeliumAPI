@@ -34,6 +34,7 @@ $(() => {
         },
         success: (weatherData) => {
           const temperature = Math.round(weatherData.main.temp);
+          const humidity = weatherData.main.humidity;
           const weatherCode = weatherData.weather[0].id;
           const { description, iconUrl } = getWeatherConditionDescription(
             weatherCode,
@@ -45,13 +46,15 @@ $(() => {
           $unit.text(`${unit}`);
           $weatherIcon.attr("src", iconUrl);
           $weatherDescription.text(description);
+          $humidity.text(humidity);
 
           $weatherContainer.css({ "display": "flex" });
           $weatherDescription.show();
         },
-        error: () => alert("Error loading weather"),
+        error: () =>
+          alert("Error loading weather data. Please try again later."),
       });
-    }).fail(() => alert("Error getting IP"));
+    }).fail(() => alert("Error retrieving location information."));
   }
 
   function getWeatherConditionDescription(weatherCode) {

@@ -7,35 +7,32 @@ let API_KEY: string | undefined;
 let API_URL: string | undefined;
 let API_UNIT: string | undefined;
 
+const defaultResponse = {
+  message: "Hi mom!",
+  status: "honeypot",
+};
+
 function serve() {
   console.log("Server started!");
   Deno.serve(async (req: Request) => {
     const pathname: string = new URL(req.url).pathname;
 
     switch (true) {
-      case pathname.startsWith("/ui"): {
+      case (pathname.startsWith("/ui") || pathname.startsWith("/icbm")): {
         return serveDir(req, { fsRoot: "./public" });
-      }
-
-      case pathname.startsWith("/icbm"): {
-        return serveDir(req, { fsRoot: "./public" });
-      }
-
-      case pathname.startsWith("/"): {
-        return new Response("Hi mom!", { status: 418 });
       }
 
       case pathname.startsWith("/weather"): {
-        const url: URL = new URL(req.url);
-        const lat: string | null = url.searchParams.get("lat");
-        const lon: string | null = url.searchParams.get("lon");
+        const url = new URL(req.url);
+        const lat = url.searchParams.get("lat");
+        const lon = url.searchParams.get("lon");
 
         if (!lat || !lon) {
           return new Response("Missing lat or lon!", { status: 400 });
         }
 
-        const weatherData: Response = await fetch(
-      `${API_URL}lat=${lat}&lon=${lon}&appid=${API_KEY}${API_UNIT}`,
+        const weatherData = await fetch(
+          `${API_URL}lat=${lat}&lon=${lon}&appid=${API_KEY}${API_UNIT}`,
         );
         const weatherJson = await weatherData.json();
 
@@ -44,8 +41,17 @@ function serve() {
         });
       }
 
+      case (pathname === "/"): {
+        return new Response(JSON.stringify(defaultResponse, null, 2), {
+          headers: { "content-type": "application/json" },
+          status: 418,
+        });
+      }
+
       default: {
-        return new Response("Could not route your request!", { status: 400 });
+        return new Response("Could not route your request!", {
+          status: 400,
+        });
       }
     }
   });
