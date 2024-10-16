@@ -14,7 +14,11 @@ function serve() {
 
     switch (true) {
       case pathname.startsWith("/ui"): {
-        return serveDir(req, { fsRoot: "./" });
+        return serveDir(req, { fsRoot: "./public" });
+      }
+
+      case pathname.startsWith("/icbm"): {
+        return serveDir(req, { fsRoot: "./public" });
       }
 
       case pathname.startsWith("/weather"): {

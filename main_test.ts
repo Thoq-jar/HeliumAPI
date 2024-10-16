@@ -7,7 +7,7 @@ Deno.serve((req: Request) => {
 
   if (pathname.startsWith("/ui")) {
     return serveDir(req, {
-      fsRoot: "./",
+      fsRoot: "./public/ui",
     });
   }
 

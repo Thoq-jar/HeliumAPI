@@ -1,6 +1,5 @@
 .env
 **/*.env
-.vercel
 .idea
 *.iml
 deno.lock
