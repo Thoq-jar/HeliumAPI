@@ -1,4 +1,4 @@
-function onLoad() {
+document.addEventListener('DOMContentLoaded', () => {
   const missile = document.getElementById("missile");
   const stillPhoto = document.getElementById("stillPhoto");
   const explosion = document.getElementById("explosion");
@@ -10,7 +10,7 @@ function onLoad() {
       { transform: `translateY(${photoRect.top + 300}px)` },
     ],
     {
-      duration: 4000,
+      duration: 2000,
       easing: "linear",
       fill: "forwards",
     },
@@ -20,4 +20,4 @@ function onLoad() {
     explosion.style.display = "block";
     explosion.classList.add("explode");
   }, 4000);
-}
+});
