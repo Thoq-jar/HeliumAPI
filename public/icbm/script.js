@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   const missile = document.getElementById("missile");
   const stillPhoto = document.getElementById("stillPhoto");
   const explosion = document.getElementById("explosion");
