@@ -1,3 +1,3 @@
-# Purrooser API Service
+# Helium API Service
 
-### Service for the Purrooser web browser
+### Service(s) for the Helium web browser

@@ -27,10 +27,10 @@ $(() => {
 
       $.ajax({
         url:
-          `https://purrooser-weather.vercel.app/weather?lat=${lat}&lon=${lon}`,
+          `https://helium-weather.vercel.app/weather?lat=${lat}&lon=${lon}`,
         method: "GET",
         headers: {
-          "Version": "Purrooser/1.0",
+          "Version": "Helium/1.0",
         },
         success: (weatherData) => {
           const temperature = Math.round(weatherData.main.temp);
